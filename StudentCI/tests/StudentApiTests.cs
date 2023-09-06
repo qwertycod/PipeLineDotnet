@@ -106,7 +106,7 @@ namespace StudentCI.Tests
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var student = new Student { ID = 8, FirstMidName = "Mukta", LastName = "Sharma" };
+            var student = new Student { ID = 9, FirstMidName = "Mukta", LastName = "Sharma" };
             string studentJson = JsonSerializer.Serialize(student);
 
             // Create an HttpContent object with the serialized JSON data
