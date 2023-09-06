@@ -32,4 +32,4 @@ jobs:
             push: true
             tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
       - name: Test
-        run: dotnet test ./StudentCI/tests/StudentCI.Tests.csproj
+        run: dotnet test ./tests/StudentCI.Tests.csproj
