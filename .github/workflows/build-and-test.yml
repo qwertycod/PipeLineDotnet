@@ -16,6 +16,10 @@ jobs:
       SOLUTION: 'StudentCI/StudentCI.sln'
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
 
     steps:
     - uses: actions/checkout@v2
@@ -35,11 +39,11 @@ jobs:
     - name: Test
       run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-results.trx" || true
       
-    - name: Test Report
+    - name: Test Report 
       uses: dorny/test-reporter@v1
       if: success() || failure()    # run this step even if previous step failed
       with:
-        name: DotNET Tests
+        name: DotNET Tests 
         path: "**/test-results.trx"                            
         reporter: dotnet-trx
         fail-on-error: true
