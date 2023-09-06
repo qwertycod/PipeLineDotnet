@@ -39,7 +39,7 @@ namespace StudentCI.Tests
                 .Build();
 
             _appContainer = new TestcontainersBuilder<TestcontainersContainer>()
-                .WithImage("clockbox")      // change your image name here
+                .WithImage("qwertycod/clockbox:latest")      // change your image name here
                 .WithNetwork(_network)
                 .WithPortBinding(HttpPort, true)
                 .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(HttpPort))
@@ -106,7 +106,7 @@ namespace StudentCI.Tests
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var student = new Student { ID = 9, FirstMidName = "Mukta", LastName = "Sharma" };
+            var student = new Student { ID = 11, FirstMidName = "Mukta", LastName = "Sharma" };
             string studentJson = JsonSerializer.Serialize(student);
 
             // Create an HttpContent object with the serialized JSON data
