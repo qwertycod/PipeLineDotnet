@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Routing;
 
 namespace StudentCI.Tests;
 
-public class UnitTest1
+public class CalculatorTests
 {
-    Calculator calculator = new Calculator();
+    StudentCI.Calculator calculator = new StudentCI.Calculator();
 
     [Fact]
     public void test_additon()
