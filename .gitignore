@@ -10,3 +10,8 @@
 /StudentCI/tests/bin/Debug/net7.0
 /StudentCI/tests/obj
 /StudentCI/tests/bin/Debug/net6.0
+/StudentCI/bin/Debug/net6.0
+/StudentCI/obj
+/tests/bin/Debug
+/tests/obj
+*.user
