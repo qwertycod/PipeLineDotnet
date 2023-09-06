@@ -39,7 +39,7 @@ namespace StudentCI.Tests
                 .Build();
 
             _appContainer = new TestcontainersBuilder<TestcontainersContainer>()
-                .WithImage("dockerimagestudentci")      // change your image name here
+                .WithImage("clockbox")      // change your image name here
                 .WithNetwork(_network)
                 .WithPortBinding(HttpPort, true)
                 .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(HttpPort))
