@@ -30,6 +30,6 @@ jobs:
             context: .
             file: ./StudentCI/Dockerfile
             push: true
-            tags: qwertycod/clockbox:latest
+            tags: clockbox:latest
       - name: Test
         run: dotnet test ./tests/StudentCI.Tests.csproj
