@@ -84,6 +84,22 @@ namespace StudentCI.Tests
             Assert.Contains("9", body);
         }
 
+          [Fact]
+        public async Task Test2()
+        {
+            using var httpClient = new HttpClient();
+            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
+
+            var httpResponseMessage = await httpClient.GetAsync("Student/test/4")
+                .ConfigureAwait(false);
+
+            var body = await httpResponseMessage.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
+
+            Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
+            Assert.Contains("12", body);
+        }
+
         [Fact]
         public async Task TestGet()
         {
