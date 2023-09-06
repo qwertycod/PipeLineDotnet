@@ -28,7 +28,7 @@ jobs:
           uses: docker/build-push-action@v4
           with:
             context: .
-            file: ./StudentCI/StudentCI/Dockerfile
+            file: ./StudentCI/Dockerfile
             push: true
             tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
       - name: Test
