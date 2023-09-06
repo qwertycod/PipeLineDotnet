@@ -4,13 +4,18 @@ on:
   push:
     branches:
     - main
+    paths-ignore:
+    - '**.md'
   pull_request:
     branches:
     - main
+    paths-ignore:
+    - '**.md'
     
 jobs:
   build_and_test:
-
+  
+    permissions: write-all
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'StudentCI/StudentCI.sln'
@@ -35,11 +40,11 @@ jobs:
     - name: Test
       run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-results.trx" || true
       
-    - name: Test Report
+    - name: Test Report 
       uses: dorny/test-reporter@v1
-      if: always()
+      if: success() || failure()    # run this step even if previous step failed
       with:
-        name: DotNET Tests
+        name: DotNET Tests 
         path: "**/test-results.trx"                            
         reporter: dotnet-trx
         fail-on-error: true
