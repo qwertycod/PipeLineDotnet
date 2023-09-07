@@ -1,14 +1,10 @@
-﻿using DotNet.Testcontainers.Builders;
+using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using DotNet.Testcontainers.Networks;
 using StudentCI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace StudentCI.Tests
 {
@@ -39,7 +35,7 @@ namespace StudentCI.Tests
                 .Build();
 
             _appContainer = new TestcontainersBuilder<TestcontainersContainer>()
-                .WithImage("qwertycod/clockbox:latest")      // change your image name here
+                .WithImage("clockbox")      // change your image name here
                 .WithNetwork(_network)
                 .WithPortBinding(HttpPort, true)
                 .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(HttpPort))
@@ -84,36 +80,20 @@ namespace StudentCI.Tests
             Assert.Contains("9", body);
         }
 
-          [Fact]
-        public async Task Test2()
-        {
-            using var httpClient = new HttpClient();
-            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
-
-            var httpResponseMessage = await httpClient.GetAsync("Student/test/4")
-                .ConfigureAwait(false);
-
-            var body = await httpResponseMessage.Content.ReadAsStringAsync()
-                .ConfigureAwait(false);
-
-            Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
-            Assert.Contains("12", body);
-        }
-
         [Fact]
         public async Task TestGet()
         {
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var httpResponseMessage = await httpClient.GetAsync("student/1")
+            var httpResponseMessage = await httpClient.GetAsync("student/2")
                 .ConfigureAwait(false);
 
             var body = await httpResponseMessage.Content.ReadAsStringAsync()
                 .ConfigureAwait(false);
 
             Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
-            Assert.Contains("Ryan", body);
+            Assert.Contains("Wayne", body);
         }
 
         [Fact]
@@ -122,7 +102,7 @@ namespace StudentCI.Tests
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var student = new Student { ID = 11, FirstMidName = "Mukta", LastName = "Sharma" };
+            var student = new Student { ID = 16, FirstMidName = "Peter", LastName = "Parker" };
             string studentJson = JsonSerializer.Serialize(student);
 
             // Create an HttpContent object with the serialized JSON data
@@ -139,3 +119,12 @@ namespace StudentCI.Tests
         }
     }
 }
+
+//    public class Student
+//    {
+//        public int ID { get; set; }
+//        public string? LastName { get; set; }
+//        public string? FirstMidName { get; set; }
+//        public DateTime EnrollmentDate { get; set; }
+//    }
+//}
