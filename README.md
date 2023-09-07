@@ -4,7 +4,7 @@
 
 1 - How to use Dockerfile to publish an app, how to integrate Postgres database with for the data source of the applition, how we can pull database in docker and run it inside a container so that our API app can connect to it. 
 
-2 - How workflow file works after "push" in the "main" branch, we have configured it in the workflow (main) file
+2 - How to configure CI/CD for the application, how workflow file works after "push" in the "main" branch, we have configured it  in the workflow (main.yml) file
 
 We can run the project in local with a docker Installed in machine, This project will run a StudentAPI and will test its 2 endpoints, get and post
 
