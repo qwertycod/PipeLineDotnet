@@ -28,8 +28,8 @@ jobs:
           uses: docker/build-push-action@v4
           with:
             context: .
-            file: ./StudentCI/Dockerfile
+            file: ./Dockerfile
             push: true
             tags: qwertycod/clockbox:latest
       - name: Test
-        run: dotnet test ./tests/StudentCI.Tests.csproj
+        run: dotnet test tests
