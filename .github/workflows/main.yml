@@ -32,4 +32,4 @@ jobs:
             push: true
             tags: qwertycod/clockbox:latest
       - name: Test
-        run: dotnet test ./tests/StudentCI.Tests.csproj
+        run: dotnet test tests
