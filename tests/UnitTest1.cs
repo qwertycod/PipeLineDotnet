@@ -85,6 +85,21 @@ namespace StudentCI.Tests
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
+            var httpResponseMessage = await httpClient.GetAsync("student")
+                .ConfigureAwait(false);
+
+            var body = await httpResponseMessage.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
+
+            Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
+        }
+
+        [Fact]
+        public async Task TestGet1()
+        {
+            using var httpClient = new HttpClient();
+            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
+
             var httpResponseMessage = await httpClient.GetAsync("student/2")
                 .ConfigureAwait(false);
 
