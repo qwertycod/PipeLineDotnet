@@ -16,3 +16,4 @@
 /tests/obj
 *.user
 /tests/.vs/StudentCI.Tests/FileContentIndex
+/tests/.vs/StudentCI.Tests/DesignTimeBuild
