@@ -1,7 +1,6 @@
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using DotNet.Testcontainers.Networks;
-using StudentCI.Models;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -102,7 +101,7 @@ namespace StudentCI.Tests
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var student = new Student { ID = 16, FirstMidName = "Peter", LastName = "Parker" };
+            var student = new Student { ID = 17, FirstMidName = "Peter", LastName = "Parker" };
             string studentJson = JsonSerializer.Serialize(student);
 
             // Create an HttpContent object with the serialized JSON data
@@ -118,13 +117,12 @@ namespace StudentCI.Tests
             Assert.NotEmpty(body);
         }
     }
-}
 
-//    public class Student
-//    {
-//        public int ID { get; set; }
-//        public string? LastName { get; set; }
-//        public string? FirstMidName { get; set; }
-//        public DateTime EnrollmentDate { get; set; }
-//    }
-//}
+public class Student
+{
+    public int ID { get; set; }
+    public string? LastName { get; set; }
+    public string? FirstMidName { get; set; }
+    public DateTime EnrollmentDate { get; set; }
+}
+}
