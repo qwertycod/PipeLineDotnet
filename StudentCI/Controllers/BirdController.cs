@@ -5,33 +5,33 @@ namespace StudentCI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class StudentController : Controller
+    public class BirdController : Controller
     {
         private readonly Data.SchoolContext _context;
 
-        public StudentController(Data.SchoolContext context)
+        public BirdController(Data.SchoolContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public IEnumerable<Student> Get()
+        public IEnumerable<Bird> Get()
         {
-            var ss = _context.students;
+            var ss = _context.birds;
             return ss;
         }
 
         [HttpGet]
-        [Route("{id}")]     // http://localhost:5001/student/3
+        [Route("{id}")]     // http://localhost:5001/bird/3
         public ActionResult<string>? GetNameById(int id)
         {
             try
             {
-                var ss = _context.students?.Where(d => d.id == id).FirstOrDefault();
+                var ss = _context.birds?.Where(d => d.id == id).FirstOrDefault();
 
                 if (ss != null)
                 {
-                    var res = ss.firstmidname;
+                    var res = ss.name;
                     return res;
                 }
                 else
@@ -41,17 +41,17 @@ namespace StudentCI.Controllers
             }
             catch (Exception e)
             {
-                return e.Message + " " +  e.InnerException?.Message ?? "Error occoured";
+                return e.Message + " " + e.InnerException?.Message ?? "Error occoured";
             }
         }
 
         [HttpPost]
         [Route("Add/")]
-        public ActionResult<string> Add(Student s)
+        public ActionResult<string> Add(Bird s)
         {
             try
             {
-                var ss = _context.students?.Add(s);
+                var ss = _context.birds?.Add(s);
                 _context.SaveChanges();
                 return Created("", new { id = s.id });
             }
@@ -67,6 +67,5 @@ namespace StudentCI.Controllers
         {
             return (int.Parse(number) * 3).ToString();
         }
-
     }
 }

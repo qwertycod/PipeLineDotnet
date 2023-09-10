@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Npgsql;
+using StudentCI.Models;
 
 namespace StudentCI.Controllers
 {
@@ -6,26 +8,88 @@ namespace StudentCI.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        static List<Product> products = new List<Product>
+        private readonly Data.SchoolContext _context;
+        public ProductController(Data.SchoolContext context)
         {
-            new Product { Id = 1, Name = "Tomato Soup", Category = "Groceries", Price = 1 },
-            new Product { Id = 2, Name = "Yo-yo", Category = "Toys", Price = 3.75M },
-            new Product { Id = 3, Name = "Hammer", Category = "Hardware", Price = 16.99M }
-        };
-
-        [HttpGet(Name = "myproducts")]
-        public IEnumerable<Product> Get()
-        {
-            return products;
+            _context = context;
         }
-    }
 
-    public class Product
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Category { get; set; }
-        public decimal Price { get; set; }
+        //static List<Product> products = new List<Product>
+        //{
+        //    new Product { Id = 1, Name = "Tomato Soup", Category = "Groceries", Price = 1 },
+        //    new Product { Id = 2, Name = "Yo-yo", Category = "Toys", Price = 3.75M },
+        //    new Product { Id = 3, Name = "Hammer", Category = "Hardware", Price = 16.99M }
+        //};
+
+        //[HttpGet(Name = "myproducts")]
+        //public IEnumerable<Product> Get()
+        //{
+        //    return products;
+        //}
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            try
+            {
+                if (_context.cars != null)
+                {
+                    var ss = _context.cars;
+                    return Ok(ss);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message + " " + e.InnerException?.Message);
+            }
+            return BadRequest();
+        }
+
+
+        [HttpGet]
+        [Route("{id}")]     // http://localhost:5001/product/3
+        public IActionResult GetNameById(int id)
+        {
+            try
+            {
+                var ss = _context.cars?.Where(d => d.id == id).FirstOrDefault();
+
+                if (ss != null)
+                {
+                    return Ok(ss.name);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message + " " + e.InnerException?.Message);
+            }
+        }
+
+        [Route("test/{number}")]
+        public string Get(string number)
+        {
+            return (int.Parse(number) * 4).ToString();
+        }
+
+        [HttpPost]
+        [Route("Add/")]
+        public IActionResult Add(Product p)
+        {
+            try
+            {
+                var ss = _context.cars?.Add(p);
+                _context.SaveChanges();
+                return Created("", new { id = p.id });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message + " " + e.InnerException?.Message);
+            }
+        }
     }
 }
 

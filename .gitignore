@@ -17,3 +17,6 @@
 *.user
 /tests/.vs/StudentCI.Tests/FileContentIndex
 /tests/.vs/StudentCI.Tests/DesignTimeBuild
+/StudentCI.Tests.sln
+/tests/.vs/StudentCI.Tests/v17/.futdcache.v2
+/tests/.vs
