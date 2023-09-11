@@ -35,7 +35,7 @@ namespace StudentCI.Tests
                 .Build();
 
             _appContainer = new TestcontainersBuilder<TestcontainersContainer>()
-                .WithImage("qwertycod/clockbox:latest")      // dockerimagestudentci or change your image name here
+                .WithImage("qwertycod/clockbox:latest")      // clockbox or change your image name here
                 .WithNetwork(_network)
                 .WithPortBinding(HttpPort, true)
                 .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(HttpPort))
@@ -70,7 +70,7 @@ namespace StudentCI.Tests
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var httpResponseMessage = await httpClient.GetAsync("Student/test/3")
+            var httpResponseMessage = await httpClient.GetAsync("bird/test/3")
                 .ConfigureAwait(false);
 
             var body = await httpResponseMessage.Content.ReadAsStringAsync()
