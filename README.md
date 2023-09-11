@@ -12,11 +12,7 @@ To setup docker/database/network etc, we have to follow this article - https://d
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-To get a UI of Postgres DB we can run adminer. To Connect Adminer and populate the database :
-Username = postgres, Password = example
-
-    docker run --rm -d --network postgres-net --name db-admin -p 8080:8080 adminer
+     
 **Steps to run**
 
 Open project in Visual Studio 2022 via .sln file
@@ -33,16 +29,16 @@ To run the API we need 3 things, Postgres DB, a network , and image to run.
 
 After the network(postgres-net) is already created. Below are 2 things to run 1 by 1 to make the app running.
 
-0   We create the image( name = clockbox ) like this, note that you - 
+0-   We create the image( name = clockbox ) like this, note that you - 
 
     docker build -f Dockerfile  -t clockbox .
 
 
-1 run PostgreSQL in a container and attach to the volume and network we created above.
+1- run PostgreSQL in a container and attach to the volume and network we created above.
 
     docker run --rm -d -v postgres-data:/var/lib/postgresql/data --network postgres-net  --name db -e POSTGRES_USER=postgres -e  POSTGRES_PASSWORD=example postgres
 
-2 let’s run our container(name =dotnet-app) on the same network as the database. This allows us to access the database by its container name.
+2- let’s run our container(name =dotnet-app) on the same network as the database. This allows us to access the database by its container name.
 
     docker run --rm -d --network postgres-net --name dotnet-app -p 5001:80 clockbox
 
@@ -119,6 +115,9 @@ Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration:
    https://www.youtube.com/watch?v=0lbDMomNt4A 
 
   https://www.youtube.com/watch?v=PZXzecYL0c8&t=32s
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 **Test-reports on Github can be found from the Action > Latest run file > open the run > check the test Report**
 
