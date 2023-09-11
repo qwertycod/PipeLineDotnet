@@ -32,9 +32,9 @@ namespace StudentCI.Controllers
         {
             try
             {
-                if (_context.cars != null)
+                if (_context.products != null)
                 {
-                    var ss = _context.cars;
+                    var ss = _context.products;
                     return Ok(ss);
                 }
             }
@@ -52,7 +52,7 @@ namespace StudentCI.Controllers
         {
             try
             {
-                var ss = _context.cars?.Where(d => d.id == id).FirstOrDefault();
+                var ss = _context.products?.Where(d => d.id == id).FirstOrDefault();
 
                 if (ss != null)
                 {
@@ -81,7 +81,7 @@ namespace StudentCI.Controllers
         {
             try
             {
-                var ss = _context.cars?.Add(p);
+                var ss = _context.products?.Add(p);
                 _context.SaveChanges();
                 return Created("", new { id = p.id });
             }
