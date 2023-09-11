@@ -11,10 +11,11 @@ internal class Program
     private const string CONNECTION_STRING1 = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;"; // to run app locally using docker postgres
     private const string CONNECTION_STRING2 = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;" + "Database=my_db"; // to run app locally using docker postgres
     private static string CONNECTION1 = "Host=db;Username=postgres;Password=example";
-    private static string CONNECTION2 = "Host=db;Database=testDb;Username=postgres;Password=example";
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        var CONNECTION2 = builder.Configuration.GetConnectionString("SchoolContext"); // "Host=db;Database=testDb;Username=postgres;Password=example";
+    
         // Add services to the container.
         //builder.Services.AddDbContext<SchoolContext>(options =>
         //   options.UseNpgsql(builder.Configuration.GetConnectionString("SchoolContext")));
