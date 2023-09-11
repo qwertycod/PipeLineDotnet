@@ -21,6 +21,9 @@ jobs:
         ports:
           - 5432:5432
         # Set health checks to wait until postgres has started
+        volumes:
+          - data:/var/lib/postgresql/data
+          - ./initdb:/docker-entrypoint-initdb.d
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
