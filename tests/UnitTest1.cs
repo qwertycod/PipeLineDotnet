@@ -82,20 +82,7 @@ namespace StudentCI.Tests
 
 
         // will run on local machine only, uncomment to run
-        //[Fact]
-        //public async Task TestGet0()
-        //{
-        //    using var httpClient = new HttpClient();
-        //    httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-        //    var httpResponseMessage = await httpClient.GetAsync("bird")
-        //        .ConfigureAwait(false);
-
-        //    var body = await httpResponseMessage.Content.ReadAsStringAsync()
-        //        .ConfigureAwait(false);
-
-        //    Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
-        //}
 
         //// will run on local machine only, uncomment to run
         //[Fact]
@@ -159,6 +146,21 @@ namespace StudentCI.Tests
 
             Assert.Equal(HttpStatusCode.OK, httpResponseMessage1.StatusCode);
             Assert.Contains("Sparrow", body1);
+        }
+
+        [Fact]
+        public async Task TestGet0()
+        {
+            using var httpClient = new HttpClient();
+            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
+
+            var httpResponseMessage = await httpClient.GetAsync("student")
+                .ConfigureAwait(false);
+
+            var body = await httpResponseMessage.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
+
+            Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
         }
 
     }
