@@ -11,7 +11,7 @@ internal class Program
     private static bool checked1 = false;
     private static bool checked2 = false;
     private static string dbName = "my_db";
-   // private const string CONNECTION_STRING = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;" + "Database=my_db";
+    // private const string CONNECTION_STRING = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;" + "Database=my_db";
     private const string CONNECTION_STRING1 = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;";
     private const string CONNECTION_STRING2 = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;" + "Database=my_db";
     private static string CONNECTION1 = "Host=db;Username=postgres;Password=example";
@@ -31,10 +31,10 @@ internal class Program
                 CreateDatabase(CONNECTION1);
                 checkProductTable(CONNECTION2);
             }
-             
-           // options.UseNpgsql(GetConnectionString(builder.Configuration.GetConnectionString("SchoolContext"))));
-           //  options.UseNpgsql(builder.Configuration.GetConnectionString("SchoolContext")));
-           //  m1(builder.Configuration.GetConnectionString("SchoolContext"));
+
+            // options.UseNpgsql(GetConnectionString(builder.Configuration.GetConnectionString("SchoolContext"))));
+            //  options.UseNpgsql(builder.Configuration.GetConnectionString("SchoolContext")));
+            //  m1(builder.Configuration.GetConnectionString("SchoolContext"));
         }
         catch (Exception e)
         {
@@ -84,14 +84,14 @@ internal class Program
         {
             try
             {
-               // connStr = "Server=localhost;Host=localhost:5455;Port=5455;User Id=postgres;Password=example;";
+                // connStr = "Server=localhost;Host=localhost:5455;Port=5455;User Id=postgres;Password=example;";
                 var connection = new NpgsqlConnection(connStr);
                 connection.Open();
 
                 var c1 = "SELECT datname FROM pg_database;";
                 using var c11 = new NpgsqlCommand(c1, connection);
                 var result1 = c11.ExecuteScalar();
-                
+
                 using var checkIfExistsCommand = new NpgsqlCommand($"SELECT 1 FROM pg_catalog.pg_database WHERE datname = '{dbName}'", connection);
                 var result = checkIfExistsCommand.ExecuteScalar();
 
@@ -118,18 +118,39 @@ internal class Program
 
             if (!checked2)
             {
+                var checkBirdsCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'birds') AS table_existence;";
+                NpgsqlCommand sqlCmd = new NpgsqlCommand(checkBirdsCommand, connection);
+
+                var res = (bool)sqlCmd.ExecuteScalar();
+
+                if (res == false)
+                {
+                    var cmd = new NpgsqlCommand();
+                    cmd.CommandText = "CREATE TABLE birds (Id SERIAL PRIMARY KEY," +
+                    "Name VARCHAR(255))";
+                    using var command = new NpgsqlCommand(cmd.CommandText, connection);
+                    command.ExecuteNonQuery();
+                    checked2 = true;
+                }
+
+                //cmd.CommandText = $"DROP TABLE IF EXISTS birds";   
+                //using var command1 = new NpgsqlCommand(cmd.CommandText, connection);
+                //command1.ExecuteNonQuery();
+
+                var checkTableCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'students') AS table_existence;";
+
                 try
                 {
-                    var checkBirdsCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'birds') AS table_existence;";
-                    NpgsqlCommand sqlCmd = new NpgsqlCommand(checkBirdsCommand, connection);
+                    NpgsqlCommand sqlCmd1 = new NpgsqlCommand(checkTableCommand, connection);
 
-                    var res = (bool)sqlCmd.ExecuteScalar();
+                    var res1 = (bool)sqlCmd1.ExecuteScalar();
 
-                    if (res == false)
+                    if (res1 == false)
                     {
                         var cmd = new NpgsqlCommand();
-                        cmd.CommandText = "CREATE TABLE birds (Id SERIAL PRIMARY KEY," +
-                        "Name VARCHAR(255))";
+                        cmd.CommandText = "CREATE TABLE students (Id SERIAL PRIMARY KEY," +
+                                    "LastName VARCHAR(255)," +
+                                    "FirstMidName VARCHAR(255)";
                         using var command = new NpgsqlCommand(cmd.CommandText, connection);
                         command.ExecuteNonQuery();
                         checked2 = true;
@@ -137,35 +158,7 @@ internal class Program
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message + "Error while creating bird table ___________________ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-                }
-
-                var cmdStudentDeleteCommandText = $"DROP TABLE IF EXISTS students";
-                var cmdStudentDeleteCommand = new NpgsqlCommand(cmdStudentDeleteCommandText, connection);
-                cmdStudentDeleteCommand.ExecuteNonQuery();
-
-                var checkStudentTableCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'students') AS table_existence;";
-
-                try
-                {
-                    NpgsqlCommand sqlCmd1 = new NpgsqlCommand(checkStudentTableCommand, connection);
-
-                    var res1 = (bool)sqlCmd1.ExecuteScalar();
-
-                    if (res1 == false)
-                    {
-                        var text = "CREATE TABLE students (Id SERIAL PRIMARY KEY," +
-                                    "LastName VARCHAR(255)," +
-                                    "FirstMidName VARCHAR(255)";
-
-                        using var command3 = new NpgsqlCommand(text, connection);
-                        command3.ExecuteNonQuery();
-                        checked2 = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message + "Error while creating student table ___________________ sssssssssssssssssssssssssssssssssssssss");
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
