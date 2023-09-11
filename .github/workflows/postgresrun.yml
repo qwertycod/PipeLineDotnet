@@ -1,4 +1,4 @@
-name: postgresCI
+name: postgresRunCI
 
 on:
   push:
