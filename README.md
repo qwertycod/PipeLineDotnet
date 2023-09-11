@@ -1,12 +1,12 @@
 # PipeLineDotnet
 
-**Project to show:**
+**Project demonstrates:**
 
 1 - How to use Dockerfile to publish an app, how to integrate Postgres database with for the data source of the applition, how we can pull database in docker and run it inside a container so that our API app can connect to it. 
 
 2 - How to configure CI/CD for the application, how workflow file works after "push" in the "main" branch, we have configured it  in the workflow (main.yml) file
 
-We can run the project in local with a docker Installed in machine, This project will run a StudentAPI and will test its 2 endpoints, get and post
+We can run the project in local with a docker Installed in machine, This project will run a StudentAPI, BirdAPI and will test its 2 endpoints, get and post
 
 To setup docker/database/network etc, we have to follow this article - https://docs.docker.com/language/dotnet/
 
@@ -22,9 +22,14 @@ To run the API we need 3 things, Postgres DB, a network , and image to run.
 
   Create network :
 
-        docker network create postgres-net
+    docker network create postgres-net
 
-As the network(postgres-net) is already created. Below are 2 things to run 1 by 1 to make the app running.
+After the network(postgres-net) is already created. Below are 2 things to run 1 by 1 to make the app running.
+
+0   We create the image( name = clockbox ) like this, note that you - 
+
+    docker build -f Dockerfile  -t clockbox .
+
 
 1 run PostgreSQL in a container and attach to the volume and network we created above.
 
@@ -33,6 +38,18 @@ As the network(postgres-net) is already created. Below are 2 things to run 1 by 
 2 let’s run our container(name =dotnet-app) on the same network as the database. This allows us to access the database by its container name.
 
     docker run --rm -d --network postgres-net --name dotnet-app -p 5001:80 clockbox
+
+**To test** : We can hit url of Student API and Bird API using postman. Then we can add some data via /Add post call.
+
+url (POST)- http://localhost:5001/student/Add
+
+data - 
+ {
+        "Id":"23",
+        "lastName": "Karnikova",
+        "firstMidName": "Ana",
+        "enrollmentDate": "2023-08-29T11:08:54.106508Z"
+}
 
 **Another way to run the app is: Via docker-compose**
 
@@ -48,38 +65,46 @@ Username = postgres, Password = example
 
     docker run --rm -d --network postgres-net --name db-admin -p 8080:8080 adminer
 
-To test our app, we will need to add some data in the postgres database, a Student table like in our model with 4 attributes, add atleast 2 students data there, then can run our app.
 
-4 - stop containers
-    docker stop db-admin dotnet-app db 
+To test our app via test cases, we will need to add some data in the postgres database, a Student table like in our model with 4 attributes, add atleast 2 students data there, then can run our app.
 
 
-For setting up test
+For setting up test cases, following the same article.
 
     1- D:\Temp\LocalProjects\DockerTest1 dotnet new xunit -n myWebApp.Tests -o tests
     2 - Add command in D:\Temp\LocalProjects\DockerTest1\DockerTest1\tests folder : dotnet add package Testcontainers --version 2.3.0
 
-To test :
+
+To run test cases
 
 Before running the test, make sure we have data in our postgres container.
 
     PS D:\Temp\LocalProjects\PipeLineDotnet> dotnet test tests
 
-Locally On test we should get such output of testing 3 method. But on github workflow we can test 1 method of API and the postgres data is not available yet there. After adding data to the postgres on server we can run all 3 test cases there as well.
+Locally on your machine after setting up everything test we should get such output of testing 4 method. But on github workflow we can test 1 method of API and the postgres data is not available yet there. After adding data to the postgres on server we can run all 4 test cases there as well.
 
-Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     4, Duration: 56 s - myWebApp.Tests.dll (net7.0)
+Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 56 s - myWebApp.Tests.dll (net7.0)
 
+To connect the app with postgres without hosting the app on docker hub, means API app is running locally and postgres DB running on docker we can make configuration change in program file connection string like this:
 
-  We can also run the image( name = clockbox ) like this - 
+**Source -** https://www.code4it.dev/blog/postgres-crud-operations-npgsql/
 
-        PS D:\Temp\LocalProjects\DockerTest1> docker build -f DockerTest1/Dockerfile  -t clockbox .
+1 - stop the already running postgres DB on docker. 
+2 - Run a new postres on our another port like:
 
+      docker run --name myPostgresDb -p 5455:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=example -e POSTGRES_DB=my_db -d postgres
+3-  connection string change -
+
+    CONNECTION_STRING = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;" + "Database=my_db";
+
+4 - Run the API app via Run or F5, use the url thats created on running in postman and test the APP.
+    
 
 **Github workflow Lerning source -** 
    https://www.youtube.com/watch?v=0lbDMomNt4A 
 
   https://www.youtube.com/watch?v=PZXzecYL0c8&t=32s
 
-**Test-reports can be found from the Action > Latest run file > open the run > check the test Report**
+**Test-reports on Github can be found from the Action > Latest run file > open the run > check the test Report**
 
  
