@@ -5,6 +5,5 @@
         public int id { get; set; }
         public string? lastname { get; set; }
         public string? firstmidname { get; set; }
-        public DateTime enrollmentdate { get; set; }
     }
 }

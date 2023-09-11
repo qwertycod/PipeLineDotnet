@@ -126,7 +126,7 @@ internal class Program
                 if (res == false)
                 {
                     var cmd = new NpgsqlCommand();
-                    cmd.CommandText = "CREATE TABLE Birds (Id SERIAL PRIMARY KEY," +
+                    cmd.CommandText = "CREATE TABLE birds (Id SERIAL PRIMARY KEY," +
                     "Name VARCHAR(255))";
                     using var command = new NpgsqlCommand(cmd.CommandText, connection);
                     command.ExecuteNonQuery();
@@ -149,8 +149,7 @@ internal class Program
                     {
                         var text = "CREATE TABLE students (Id SERIAL PRIMARY KEY," +
                                     "LastName VARCHAR(255)," +
-                                    "FirstMidName VARCHAR(255)," +
-                                    "EnrollmentDate DATE)";
+                                    "FirstMidName VARCHAR(255)";
 
                         using var command3 = new NpgsqlCommand(text, connection);
                         command3.ExecuteNonQuery();
