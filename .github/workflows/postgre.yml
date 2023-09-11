@@ -15,7 +15,7 @@ jobs:
      postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: testDb        
+          POSTGRES_DB: my_db        
           POSTGRES_PASSWORD: example
           POSTGRES_USER: postgres
         ports:
