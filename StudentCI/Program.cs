@@ -10,12 +10,12 @@ internal class Program
 {
     private static bool checked1 = false;
     private static bool checked2 = false;
-    private static string dbName = "testDb";
+    private static string dbName = "my_db";
    // private const string CONNECTION_STRING = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;" + "Database=my_db";
     private const string CONNECTION_STRING1 = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;";
     private const string CONNECTION_STRING2 = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;" + "Database=my_db";
     private static string CONNECTION1 = "Host=db;Username=postgres;Password=example";
-    private static string CONNECTION2 = "Host=db;Database=testDb;Username=postgres;Password=example";
+    private static string CONNECTION2 = "Host=db;Database=my_db;Username=postgres;Password=example";
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
