@@ -4,7 +4,7 @@
 
 1 - How to use Dockerfile to publish an app, how to integrate Postgres database for the data source of the applition, how we can pull database in docker and run it inside a container so that our API app can connect to it. 
 
-2 - How to configure CI/CD for the application, how workflow file works after "push" in the "main" branch, we have configured it  in the workflow (main.yml) file.
+2 - How to configure CI/CD for the application, how workflow file works after "push" in the "main" branch, we have configured it  in the workflow (postgresrun.yml) file.
 
 **What happens when github workflow runs:**
 
