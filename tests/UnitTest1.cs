@@ -104,7 +104,7 @@ namespace StudentCI.Tests
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var student = new Student { id = _id, firstmidname = "Ryan", lastname = "Parker" };
+            var student = new Student { id = 102, firstmidname = "Ryan", lastname = "Parker" };
             string studentJson = JsonSerializer.Serialize(student);
 
             // Create an HttpContent object with the serialized JSON data
@@ -119,7 +119,7 @@ namespace StudentCI.Tests
             Assert.Equal(HttpStatusCode.Created, httpResponseMessage.StatusCode);
             Assert.NotEmpty(body);
 
-            var httpResponseMessage1 = await httpClient.GetAsync("student/" + _id)
+            var httpResponseMessage1 = await httpClient.GetAsync("student/" + 102)
               .ConfigureAwait(false);
 
             var body1 = await httpResponseMessage1.Content.ReadAsStringAsync()
