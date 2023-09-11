@@ -6,11 +6,17 @@
 
 2 - How to configure CI/CD for the application, how workflow file works after "push" in the "main" branch, we have configured it  in the workflow (main.yml) file.
 When github workflow runs:
+
      - It creates a network
+     
      - It creates the PostgresData
+     
      - Our code creates checks of DB is present, if not, we create it
+     
      - Then we add 2 tables in our DB
+     
      - Then we run our application
+     
      - Then we run our test case based on that DB. This project will run a ProductAPI, BirdAPI and will test its 2 endpoints, get and post.
 
 Locally, We can run the project in local with a docker Installed in machine, 
