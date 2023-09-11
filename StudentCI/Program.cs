@@ -155,31 +155,6 @@ internal class Program
                     command.ExecuteNonQuery();
                 }
 
-                /////////////////////////////////
-
-                var checkTableCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'students') AS table_existence;";
-
-                try
-                {
-                    NpgsqlCommand sqlCmd1 = new NpgsqlCommand(checkTableCommand, connection);
-
-                    var res1 = (bool)sqlCmd1.ExecuteScalar();
-
-                    if (res1 == false)
-                    {
-                        var cmd = new NpgsqlCommand();
-                        cmd.CommandText = "CREATE TABLE students (Id SERIAL PRIMARY KEY," +
-                        "lastname VARCHAR(255))," +
-                         "firstmidName VARCHAR(255))";
-                        using var command = new NpgsqlCommand(cmd.CommandText, connection);
-                        command.ExecuteNonQuery();                        
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
                 checked2 = true;
                 connection.Close();
             }
