@@ -157,6 +157,28 @@ namespace StudentCI.Tests
 
             Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
         }
+
+        [Fact]
+        public async Task Test_check_if_product_api_post_is_running()
+        {
+            using var httpClient = new HttpClient();
+            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
+
+            var product = new Product { id = 101, name = "Apple" };
+            string productJson = JsonSerializer.Serialize(product);
+
+            // Create an HttpContent object with the serialized JSON data
+            HttpContent content1 = new StringContent(productJson, Encoding.UTF8, "application/json");
+
+            var httpResponseMessage = await httpClient.PostAsync("product/Add", content1)
+                .ConfigureAwait(false);
+
+            var body = await httpResponseMessage.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
+
+            Assert.Equal(HttpStatusCode.Created, httpResponseMessage.StatusCode);
+            Assert.NotEmpty(body);
+        }
     }
 
     public class Bird
