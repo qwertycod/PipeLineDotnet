@@ -129,8 +129,7 @@ internal class Program
                     cmd.CommandText = "CREATE TABLE birds (Id SERIAL PRIMARY KEY," +
                     "Name VARCHAR(255))";
                     using var command = new NpgsqlCommand(cmd.CommandText, connection);
-                    command.ExecuteNonQuery();
-                    checked2 = true;
+                    command.ExecuteNonQuery();                    
                 }
 
                 //cmd.CommandText = $"DROP TABLE IF EXISTS birds";   
@@ -173,14 +172,16 @@ internal class Program
                         "lastname VARCHAR(255))," +
                          "firstmidName VARCHAR(255))";
                         using var command = new NpgsqlCommand(cmd.CommandText, connection);
-                        command.ExecuteNonQuery();
-                        checked2 = true;
+                        command.ExecuteNonQuery();                        
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
+
+                checked2 = true;
+                connection.Close();
             }
         }
     }
