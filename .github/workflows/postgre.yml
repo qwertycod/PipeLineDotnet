@@ -11,24 +11,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
+    # service containers to run with `postgres-job`
     services:
-     postgres:
+      # label used to access the service container
+      postgres:
+        # Docker Hub image
         image: postgres:latest
+        # service environment variables
+        # `POSTGRES_HOST` is `postgres`
         env:
-          POSTGRES_DB: my_db        
+          # optional (defaults to `postgres`)
+          POSTGRES_DB: my_db
+          # required
           POSTGRES_PASSWORD: example
+          # optional (defaults to `5432`)
+          POSTGRES_PORT: 5432
+          # optional (defaults to `postgres`)
           POSTGRES_USER: postgres
         ports:
+          # maps tcp port 5432 on service container to the host
           - 5432:5432
-        # Set health checks to wait until postgres has started
-        volumes:
-          - postgres-data:/var/lib/postgresql/data
-          - ./initdb:/docker-entrypoint-initdb.d
+        # set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        volumes:
+          - data:/var/lib/postgresql/data
+          - ./initdb:/docker-entrypoint-initdb.d
 
     steps:
       -
