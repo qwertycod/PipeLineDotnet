@@ -57,6 +57,7 @@ namespace StudentCI.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message + e.InnerException?.Message);
                 return BadRequest(e.Message + " " + e.InnerException?.Message);
             }
         }

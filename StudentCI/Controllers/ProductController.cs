@@ -40,6 +40,7 @@ namespace StudentCI.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message + e.InnerException?.Message);
                 return BadRequest(e.Message + " " + e.InnerException?.Message);
             }
             return BadRequest();
@@ -65,6 +66,7 @@ namespace StudentCI.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message + e.InnerException?.Message);
                 return BadRequest(e.Message + " " + e.InnerException?.Message);
             }
         }
@@ -87,6 +89,7 @@ namespace StudentCI.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message + e.InnerException?.Message);
                 return BadRequest(e.Message + " " + e.InnerException?.Message);
             }
         }
