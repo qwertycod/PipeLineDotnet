@@ -90,7 +90,7 @@ namespace StudentCI.Tests
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var bird = new Bird { id = _id, name = "Sparrow" };
+            var bird = new Bird { id = 101, name = "Sparrow" };
             string birdJson = JsonSerializer.Serialize(bird);
 
             // Create an HttpContent object with the serialized JSON data
@@ -105,7 +105,7 @@ namespace StudentCI.Tests
             Assert.Equal(HttpStatusCode.Created, httpResponseMessage.StatusCode);
             Assert.NotEmpty(body);
 
-            var httpResponseMessage1 = await httpClient.GetAsync("bird/" + _id)
+            var httpResponseMessage1 = await httpClient.GetAsync("bird/" + 101)
               .ConfigureAwait(false);
 
             var body1 = await httpResponseMessage1.Content.ReadAsStringAsync()
