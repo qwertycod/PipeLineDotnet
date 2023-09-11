@@ -10,6 +10,13 @@ We can run the project in local with a docker Installed in machine, This project
 
 To setup docker/database/network etc, we have to follow this article - https://docs.docker.com/language/dotnet/
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+To get a UI of Postgres DB we can run adminer. To Connect Adminer and populate the database :
+Username = postgres, Password = example
+
+    docker run --rm -d --network postgres-net --name db-admin -p 8080:8080 adminer
 **Steps to run**
 
 Open project in Visual Studio 2022 via .sln file
@@ -51,6 +58,16 @@ data -
         "enrollmentDate": "2023-08-29T11:08:54.106508Z"
 }
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+To get a UI of Postgres DB we can run adminer. To Connect Adminer and populate the database :
+Username = postgres, Password = example
+
+    docker run --rm -d --network postgres-net --name db-admin -p 8080:8080 adminer
+    
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 **Another way to run the app is: Via docker-compose**
 
 We can run all 3 at once. 
@@ -59,15 +76,10 @@ We can run all 3 at once.
 
         PS D:\Temp\LocalProjects\PipeLineDotnet> docker compose up --build
 
-    
-To get a UI of Postgres DB we can run adminer. To Connect Adminer and populate the database :
-Username = postgres, Password = example
 
-    docker run --rm -d --network postgres-net --name db-admin -p 8080:8080 adminer
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-To test our app via test cases, we will need to add some data in the postgres database, a Student table like in our model with 4 attributes, add atleast 2 students data there, then can run our app.
-
+To test our app via test cases, we will need to have a DB. In our test case we are creating student data and getting it.
 
 For setting up test cases, following the same article.
 
@@ -85,7 +97,9 @@ Locally on your machine after setting up everything test we should get such outp
 
 Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 56 s - myWebApp.Tests.dll (net7.0)
 
-To connect the app with postgres without hosting the app on docker hub, means API app is running locally and postgres DB running on docker we can make configuration change in program file connection string like this:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+**To connect the API app with postgres without hosting the app on docker hub**, means API app is running locally and postgres DB running on docker we can make configuration change in program file connection string like this:
 
 **Source -** https://www.code4it.dev/blog/postgres-crud-operations-npgsql/
 
@@ -98,7 +112,8 @@ To connect the app with postgres without hosting the app on docker hub, means AP
     CONNECTION_STRING = "Host=localhost:5455;" + "Username=postgres;" + "Password=example;" + "Database=my_db";
 
 4 - Run the API app via Run or F5, use the url thats created on running in postman and test the APP.
-    
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 **Github workflow Lerning source -** 
    https://www.youtube.com/watch?v=0lbDMomNt4A 
