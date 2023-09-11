@@ -1,4 +1,4 @@
-name: postgresCI
+name: postgresRunCI
 
 on:
   push:
@@ -54,6 +54,14 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+
+      - name: Create network
+        run: |
+              docker network create postgres-net     
+
+      - name: Start PostgreSQL Container
+        run: |
+          docker run --rm -d -v postgres-data:/var/lib/postgresql/data --network postgres-net  --name db -e POSTGRES_USER=postgres -e  POSTGRES_PASSWORD=example postgres
       -
           name: Build and push
           uses: docker/build-push-action@v4
