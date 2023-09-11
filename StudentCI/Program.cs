@@ -149,8 +149,8 @@ internal class Program
                     {
                         var cmd = new NpgsqlCommand();
                         cmd.CommandText = "CREATE TABLE students (Id SERIAL PRIMARY KEY," +
-                                    "LastName VARCHAR(255)," +
-                                    "FirstMidName VARCHAR(255)";
+                        "lastname VARCHAR(255))," +
+                         "firstmidName VARCHAR(255))";
                         using var command = new NpgsqlCommand(cmd.CommandText, connection);
                         command.ExecuteNonQuery();
                         checked2 = true;
