@@ -137,6 +137,27 @@ internal class Program
                 //using var command1 = new NpgsqlCommand(cmd.CommandText, connection);
                 //command1.ExecuteNonQuery();
 
+                /////////////////////////////////
+
+                var checkProductsCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'products') AS table_existence;";
+                NpgsqlCommand sqlCmdP = new NpgsqlCommand(checkProductsCommand, connection);
+
+                var resP = (bool)sqlCmdP.ExecuteScalar();
+
+                if (resP == false)
+                {
+                    var cmd = new NpgsqlCommand();
+                    cmd.CommandText = "CREATE TABLE products (Id SERIAL PRIMARY KEY," +
+                    "name VARCHAR(255)," +
+                    "category VARCHAR(255)," +
+                    "price INT" +
+                    ")";
+                    using var command = new NpgsqlCommand(cmd.CommandText, connection);
+                    command.ExecuteNonQuery();
+                }
+
+                /////////////////////////////////
+
                 var checkTableCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'students') AS table_existence;";
 
                 try
