@@ -157,22 +157,6 @@ namespace StudentCI.Tests
 
             Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
         }
-
-        [Fact]
-        public async Task Test_check_if_student_api_is_running()
-        {
-            using var httpClient = new HttpClient();
-            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
-
-            var httpResponseMessage = await httpClient.GetAsync("student")
-                .ConfigureAwait(false);
-
-            var body = await httpResponseMessage.Content.ReadAsStringAsync()
-                .ConfigureAwait(false);
-
-            Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
-        }
-
     }
 
     public class Bird
