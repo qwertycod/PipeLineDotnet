@@ -97,37 +97,37 @@ namespace StudentCI.Tests
             Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
         }
 
-        // will run on local machine only, uncomment to run
-        [Fact]
-        public async Task TestPostGet()
-        {
-            using var httpClient = new HttpClient();
-            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
+        //// will run on local machine only, uncomment to run
+        //[Fact]
+        //public async Task TestPostGetStudents()
+        //{
+        //    using var httpClient = new HttpClient();
+        //    httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var student = new Student { id = 102, firstmidname = "Ryan", lastname = "Parker" };
-            string studentJson = JsonSerializer.Serialize(student);
+        //    var student = new Student { id = _id, firstmidname = "Ryan", lastname = "Parker" };
+        //    string studentJson = JsonSerializer.Serialize(student);
 
-            // Create an HttpContent object with the serialized JSON data
-            HttpContent content = new StringContent(studentJson, Encoding.UTF8, "application/json");
+        //    // Create an HttpContent object with the serialized JSON data
+        //    HttpContent content = new StringContent(studentJson, Encoding.UTF8, "application/json");
 
-            var httpResponseMessage = await httpClient.PostAsync("student/Add", content)
-                .ConfigureAwait(false);
+        //    var httpResponseMessage = await httpClient.PostAsync("student/Add", content)
+        //        .ConfigureAwait(false);
 
-            var body = await httpResponseMessage.Content.ReadAsStringAsync()
-                .ConfigureAwait(false);
+        //    var body = await httpResponseMessage.Content.ReadAsStringAsync()
+        //        .ConfigureAwait(false);
 
-            Assert.Equal(HttpStatusCode.Created, httpResponseMessage.StatusCode);
-            Assert.NotEmpty(body);
+        //    Assert.Equal(HttpStatusCode.Created, httpResponseMessage.StatusCode);
+        //    Assert.NotEmpty(body);
 
-            var httpResponseMessage1 = await httpClient.GetAsync("student/" + 102)
-              .ConfigureAwait(false);
+        //    var httpResponseMessage1 = await httpClient.GetAsync("student/" + _id)
+        //      .ConfigureAwait(false);
 
-            var body1 = await httpResponseMessage1.Content.ReadAsStringAsync()
-                .ConfigureAwait(false);
+        //    var body1 = await httpResponseMessage1.Content.ReadAsStringAsync()
+        //        .ConfigureAwait(false);
 
-            Assert.Equal(HttpStatusCode.OK, httpResponseMessage1.StatusCode);
-            Assert.Contains("Ryan", body1);
-        }
+        //    Assert.Equal(HttpStatusCode.OK, httpResponseMessage1.StatusCode);
+        //    Assert.Contains("Ryan", body1);
+        //}
 
         // will run on local machine only, uncomment to run
         [Fact]
