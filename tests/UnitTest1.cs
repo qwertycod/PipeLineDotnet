@@ -64,21 +64,21 @@ namespace StudentCI.Tests
             _cts.Dispose();
         }
 
-        //[Fact]
-        //public async Task Test_check_if_api_is_running()
-        //{
-        //    using var httpClient = new HttpClient();
-        //    httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
+        [Fact]
+        public async Task Test_check_if_api_is_running()
+        {
+            using var httpClient = new HttpClient();
+            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-        //    var httpResponseMessage = await httpClient.GetAsync("bird/test/3")
-        //        .ConfigureAwait(false);
+            var httpResponseMessage = await httpClient.GetAsync("bird/test/3")
+                .ConfigureAwait(false);
 
-        //    var body = await httpResponseMessage.Content.ReadAsStringAsync()
-        //        .ConfigureAwait(false);
+            var body = await httpResponseMessage.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
 
-        //    Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
-        //    Assert.Contains("9", body);
-        //}
+            Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
+            Assert.Contains("9", body);
+        }
 
         //[Fact]
         //public async Task TestPostGetProduct()
