@@ -79,7 +79,7 @@ namespace StudentCI.Tests
             Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
             Assert.Contains("9", body);
         }
-       
+
         //[Fact]
         //public async Task TestPostGetProduct()
         //{
@@ -143,6 +143,20 @@ namespace StudentCI.Tests
             Assert.Contains("Sparrow", body1);
         }
 
+        [Fact]
+        public async Task Test_check_if_product_api_is_running()
+        {
+            using var httpClient = new HttpClient();
+            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
+
+            var httpResponseMessage = await httpClient.GetAsync("product")
+                .ConfigureAwait(false);
+
+            var body = await httpResponseMessage.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
+
+            Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
+        }
 
     }
 
