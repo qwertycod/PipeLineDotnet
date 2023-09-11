@@ -1,10 +1,6 @@
-using Docker.DotNet.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Npgsql;
 using StudentCI.Data;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using static System.Net.Mime.MediaTypeNames;
 
 internal class Program
 {
@@ -28,7 +24,7 @@ internal class Program
              options.UseNpgsql(CONNECTION2));
             if (!checked1)
             {
-                CreateDatabase(CONNECTION1);
+                CreateDatabase(CONNECTION2);
                 checkProductTable(CONNECTION2);
             }
 
