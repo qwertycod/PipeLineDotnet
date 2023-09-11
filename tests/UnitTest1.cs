@@ -88,7 +88,7 @@ namespace StudentCI.Tests
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var httpResponseMessage = await httpClient.GetAsync("student")
+            var httpResponseMessage = await httpClient.GetAsync("bird")
                 .ConfigureAwait(false);
 
             var body = await httpResponseMessage.Content.ReadAsStringAsync()
