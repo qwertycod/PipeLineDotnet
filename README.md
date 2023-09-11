@@ -2,11 +2,18 @@
 
 **Project demonstrates:**
 
-1 - How to use Dockerfile to publish an app, how to integrate Postgres database with for the data source of the applition, how we can pull database in docker and run it inside a container so that our API app can connect to it. 
+1 - How to use Dockerfile to publish an app, how to integrate Postgres database for the data source of the applition, how we can pull database in docker and run it inside a container so that our API app can connect to it. 
 
-2 - How to configure CI/CD for the application, how workflow file works after "push" in the "main" branch, we have configured it  in the workflow (main.yml) file
+2 - How to configure CI/CD for the application, how workflow file works after "push" in the "main" branch, we have configured it  in the workflow (main.yml) file.
+When github workflow runs:
+     - It creates a network
+     - It creates the PostgresData
+     - Our code creates checks of DB is present, if not, we create it
+     - Then we add 2 tables in our DB
+     - Then we run our application
+     - Then we run our test case based on that DB. This project will run a ProductAPI, BirdAPI and will test its 2 endpoints, get and post.
 
-We can run the project in local with a docker Installed in machine, This project will run a StudentAPI, BirdAPI and will test its 2 endpoints, get and post
+Locally, We can run the project in local with a docker Installed in machine, 
 
 To setup docker/database/network etc, we have to follow this article - https://docs.docker.com/language/dotnet/
 
@@ -34,7 +41,7 @@ After the network(postgres-net) is already created. Below are 2 things to run 1 
     docker build -f Dockerfile  -t clockbox .
 
 
-1- run PostgreSQL in a container and attach to the volume and network we created above.
+1- **Remember to run PostgreSQL before running the API app** in a container and attach to the volume and network we created above.
 
     docker run --rm -d -v postgres-data:/var/lib/postgresql/data --network postgres-net  --name db -e POSTGRES_USER=postgres -e  POSTGRES_PASSWORD=example postgres
 
@@ -92,6 +99,9 @@ Before running the test, make sure we have data in our postgres container.
 Locally on your machine after setting up everything test we should get such output of testing 4 method. But on github workflow we can test 1 method of API and the postgres data is not available yet there. After adding data to the postgres on server we can run all 4 test cases there as well.
 
 Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 56 s - myWebApp.Tests.dll (net7.0)
+
+![image](https://github.com/qwertycod/PipeLineDotnet/assets/112320985/9b9732ff-d714-46d9-b37a-85a4ddb33d44)
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
