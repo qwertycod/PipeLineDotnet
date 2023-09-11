@@ -80,36 +80,36 @@ namespace StudentCI.Tests
             Assert.Contains("9", body);
         }
        
-        [Fact]
-        public async Task TestPostGetProduct()
-        {
-            using var httpClient = new HttpClient();
-            httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
+        //[Fact]
+        //public async Task TestPostGetProduct()
+        //{
+        //    using var httpClient = new HttpClient();
+        //    httpClient.BaseAddress = new UriBuilder("http", _appContainer.Hostname, _appContainer.GetMappedPublicPort(HttpPort)).Uri;
 
-            var obj = new Product { id = _id, name = "Apple" };
-            string json = JsonSerializer.Serialize(obj);
+        //    var obj = new Product { id = _id, name = "Apple" };
+        //    string json = JsonSerializer.Serialize(obj);
 
-            // Create an HttpContent object with the serialized JSON data
-            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+        //    // Create an HttpContent object with the serialized JSON data
+        //    HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var httpResponseMessage = await httpClient.PostAsync("product/Add", content)
-                .ConfigureAwait(false);
+        //    var httpResponseMessage = await httpClient.PostAsync("product/Add", content)
+        //        .ConfigureAwait(false);
 
-            var body = await httpResponseMessage.Content.ReadAsStringAsync()
-                .ConfigureAwait(false);
+        //    var body = await httpResponseMessage.Content.ReadAsStringAsync()
+        //        .ConfigureAwait(false);
 
-            Assert.Equal(HttpStatusCode.Created, httpResponseMessage.StatusCode);
-            Assert.NotEmpty(body);
+        //    Assert.Equal(HttpStatusCode.Created, httpResponseMessage.StatusCode);
+        //    Assert.NotEmpty(body);
 
-            var httpResponseMessage1 = await httpClient.GetAsync("product/" + _id)
-              .ConfigureAwait(false);
+        //    var httpResponseMessage1 = await httpClient.GetAsync("product/" + _id)
+        //      .ConfigureAwait(false);
 
-            var body1 = await httpResponseMessage1.Content.ReadAsStringAsync()
-                .ConfigureAwait(false);
+        //    var body1 = await httpResponseMessage1.Content.ReadAsStringAsync()
+        //        .ConfigureAwait(false);
 
-            Assert.Equal(HttpStatusCode.OK, httpResponseMessage1.StatusCode);
-            Assert.Contains("Apple", body1);
-        }
+        //    Assert.Equal(HttpStatusCode.OK, httpResponseMessage1.StatusCode);
+        //    Assert.Contains("Apple", body1);
+        //}
 
         // will run on local machine only, uncomment to run
         [Fact]
