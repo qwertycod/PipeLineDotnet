@@ -118,37 +118,30 @@ internal class Program
 
             if (!checked2)
             {
-                try
-                {
-                    var checkBirdsCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'birds') AS table_existence;";
-                    NpgsqlCommand sqlCmd = new NpgsqlCommand(checkBirdsCommand, connection);
+                var checkBirdsCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'birds') AS table_existence;";
+                NpgsqlCommand sqlCmd = new NpgsqlCommand(checkBirdsCommand, connection);
 
-                    var res = (bool)sqlCmd.ExecuteScalar();
+                var res = (bool)sqlCmd.ExecuteScalar();
 
-                    if (res == false)
-                    {
-                        var cmd = new NpgsqlCommand();
-                        cmd.CommandText = "CREATE TABLE birds (Id SERIAL PRIMARY KEY," +
-                        "Name VARCHAR(255))";
-                        using var command = new NpgsqlCommand(cmd.CommandText, connection);
-                        command.ExecuteNonQuery();
-                        checked2 = true;
-                    }
-                }
-                catch (Exception ex)
+                if (res == false)
                 {
-                    Console.WriteLine(ex.Message + "Error while creating bird table ___________________ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                    var cmd = new NpgsqlCommand();
+                    cmd.CommandText = "CREATE TABLE birds (Id SERIAL PRIMARY KEY," +
+                    "Name VARCHAR(255))";
+                    using var command = new NpgsqlCommand(cmd.CommandText, connection);
+                    command.ExecuteNonQuery();
+                    checked2 = true;
                 }
 
-                var cmdStudentDeleteCommandText = $"DROP TABLE IF EXISTS students";
-                var cmdStudentDeleteCommand = new NpgsqlCommand(cmdStudentDeleteCommandText, connection);
-                cmdStudentDeleteCommand.ExecuteNonQuery();
+                //cmd.CommandText = $"DROP TABLE IF EXISTS birds";   
+                //using var command1 = new NpgsqlCommand(cmd.CommandText, connection);
+                //command1.ExecuteNonQuery();
 
-                var checkStudentTableCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'students') AS table_existence;";
+                var checkTableCommand = "SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'students') AS table_existence;";
 
                 try
                 {
-                    NpgsqlCommand sqlCmd1 = new NpgsqlCommand(checkStudentTableCommand, connection);
+                    NpgsqlCommand sqlCmd1 = new NpgsqlCommand(checkTableCommand, connection);
 
                     var res1 = (bool)sqlCmd1.ExecuteScalar();
 
@@ -165,7 +158,7 @@ internal class Program
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message + "Error while creating student table ___________________ sssssssssssssssssssssssssssssssssssssss");
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
