@@ -29,7 +29,7 @@ To setup docker/database/network etc, we have to follow this article - https://d
      
 **Steps to run**
 
-Open project in Visual Studio 2022 via .sln file
+Open project in Visual Studio 2022 via .sln file of both projects separately.
 
 Below are the ways to run it. 
 
