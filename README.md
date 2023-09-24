@@ -104,6 +104,8 @@ Before running the test, make sure we have data in our postgres container.
     PS D:\Temp\LocalProjects\PipeLineDotnet> dotnet test tests
 
 Locally on your machine after setting up everything test we should get such output of testing 4 method. On github workflow also, we can test all methods of API and the postgres data is not available yet there. 
+
+
 Note: For test cases to run on server, we are calling get and post calls, to pass a Get test case we should have the data present in the database there, we are seeding the on project startup.
 
 Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 56 s - myWebApp.Tests.dll (net7.0)
