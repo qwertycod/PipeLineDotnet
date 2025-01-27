@@ -1,3 +1,6 @@
+Refer readme file in the PipeLineDotnet-main for all info.
+Below are just few instructions
+
 1 - Build docker 
 
 D:\Temp\LocalProjects\PipeLineDotnet\StudentCI> docker build -f StudentCI/Dockerfile  -t dockerimagestudentci .
