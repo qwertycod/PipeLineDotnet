@@ -56,21 +56,21 @@ After the network(postgres-net) is already created. Below are 2 things to run 1 
 
     docker run --rm -d --network postgres-net --name dotnet-app -p 5001:80 clockbox
 
-**To test** : We can hit url of Student API and Bird API using postman. Then we can add some data via /Add post call.
+**To test** : We can hit url of Product API and Bird API using postman. Then we can add some data via /Add post call.
 
 url (POST)- http://localhost:5001/product/Add
 
-data - 
-  { "Id":"23", "name": "Computer", "category": "IT", "price": 9.99}
+data -   { "Id":"23", "name": "Computer", "category": "IT", "price": 9.99}
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 To get a UI of Postgres DB we can run adminer. To Connect Adminer and populate the database :
-Username = postgres, Password = example
+Username = postgres, Password = example, database - db
+
 
     docker run --rm -d --network postgres-net --name db-admin -p 8080:8080 adminer
     
+open url - http://localhost:8080/
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 **Another way to run the app is: Via docker-compose**
@@ -84,13 +84,12 @@ We can run all 3 at once.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-To test our app via test cases, we will need to have a DB. In our test case we are creating student data and getting it.
+To test our app via test cases, we will need to have a DB. In our test case we are creating product data and getting it.
 
 For setting up test cases, following the same article.
 
     1- D:\Temp\LocalProjects\DockerTest1 dotnet new xunit -n myWebApp.Tests -o tests
     2 - Add command in D:\Temp\LocalProjects\DockerTest1\DockerTest1\tests folder : dotnet add package Testcontainers --version 2.3.0
-
 
 To run test cases
 
