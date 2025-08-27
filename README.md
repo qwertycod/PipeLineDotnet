@@ -67,10 +67,11 @@ data -   { "Id":"23", "name": "Computer", "category": "IT", "price": 9.99}
 To get a UI of Postgres DB we can run adminer. To Connect Adminer and populate the database :
 Username = postgres, Password = example, database - db
 
-
+ 
     docker run --rm -d --network postgres-net --name db-admin -p 8080:8080 adminer
-    
-open url - http://localhost:8080/
+
+    open url - http://localhost:8080/ after it to see Postgres UI
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 **Another way to run the app is: Via docker-compose**
