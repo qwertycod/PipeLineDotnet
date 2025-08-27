@@ -77,7 +77,7 @@ namespace StudentCI.Tests
                 .ConfigureAwait(false);
 
             Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
-            Assert.Contains("9", body);
+            Assert.Contains("9", body); //
         }
 
         [Fact]
