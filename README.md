@@ -58,15 +58,10 @@ After the network(postgres-net) is already created. Below are 2 things to run 1 
 
 **To test** : We can hit url of Student API and Bird API using postman. Then we can add some data via /Add post call.
 
-url (POST)- http://localhost:5001/student/Add
+url (POST)- http://localhost:5001/product/Add
 
 data - 
- {
-        "Id":"23",
-        "lastName": "Karnikova",
-        "firstMidName": "Ana",
-        "enrollmentDate": "2023-08-29T11:08:54.106508Z"
-}
+  { "Id":"23", "name": "Computer", "category": "IT", "price": 9.99}
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
