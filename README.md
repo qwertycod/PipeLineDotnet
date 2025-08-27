@@ -109,6 +109,10 @@ Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration:
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+To run Github action run this workflow - postgresRunCI
+It runs whenever code file changes
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 **To connect the API app with postgres without hosting the app on docker hub**, means API app is running locally and postgres DB running on docker we can make configuration change in program file connection string like this:
 
