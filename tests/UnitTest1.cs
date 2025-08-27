@@ -123,7 +123,7 @@ namespace StudentCI.Tests
             var body = await httpResponseMessage.Content.ReadAsStringAsync()
                 .ConfigureAwait(false);
 
-            Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, httpResponseMessage.StatusCode); //
         }
 
         [Fact]
